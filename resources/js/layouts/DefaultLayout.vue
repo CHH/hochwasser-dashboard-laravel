@@ -9,6 +9,9 @@
         <slot/>
         <footer class="mt-3">
             <div>
+                <b>Version: </b> {{ $page.props.pegel.version }}
+            </div>
+            <div class="mt-3">
                 <b>Impressum: </b>
             </div>
             <div>

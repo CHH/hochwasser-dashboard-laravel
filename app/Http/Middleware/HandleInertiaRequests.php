@@ -37,7 +37,10 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            //
+            'pegel' => [
+                'version' => config('pegel.version'),
+                'rivers' => config('pegel.rivers'),
+            ],
         ];
     }
 }
