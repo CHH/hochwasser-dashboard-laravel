@@ -57,13 +57,13 @@ onBeforeUnmount(() => {
 
                 <section class="rounded-xl bg-white shadow-sm xl:col-span-6 overflow-hidden">
                     <iframe src="https://www.feuerwehr-krems.at/Dokumente/Bezirk/Die%20Feuerwehren/Die%20Feuerwehren/FFInfo_Allgemein.asp?EldisID=337401&Select=1" frameborder="0"
-                        class="w-full aspect-video"
+                        class="w-full aspect-square"
                     ></iframe>
                 </section>
 
                 <section class="rounded-xl bg-white shadow-sm xl:col-span-6 overflow-hidden">
                     <iframe src="https://warnungen.zamg.at/wsapp/de/alle/heute/496799,437164,539634,459470" frameborder="0"
-                        class="w-full aspect-video"
+                        class="w-full aspect-square"
                     ></iframe>
                 </section>
             </div>
