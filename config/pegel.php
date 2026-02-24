@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'version' => '2.0.0',
     'rivers' => [
         'prollingbach' => [
             'id' => 301,
