@@ -61,11 +61,7 @@ class ImportRiverData implements ShouldQueue
                     'timestamp' => Date::parse($level['Key'])->toDateTimeString(),
                     'value' => $level['Value'],
                 ];
-            })->push([
-                'river_id' => $river->id,
-                'timestamp' => Date::parse($currentLevel['Value']['Key'])->toDateTimeString(),
-                'value' => $currentLevel['Value']['Value'],
-            ])->all()
+            })->all()
         , uniqueBy: ['river_id', 'timestamp'], update: ['value']);
     }
 }
