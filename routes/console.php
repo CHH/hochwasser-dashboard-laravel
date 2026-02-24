@@ -10,7 +10,9 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Schedule::command('app:rivers:import')->everyFiveMinutes();
+Schedule::command('app:rivers:import')
+    ->everyFiveMinutes()
+    ->runInBackground();
 
 Schedule::call(function () {
     RiverLevel::where('timestamp', '<', Date::today()->subDays(8))->delete();

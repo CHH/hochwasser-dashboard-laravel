@@ -26,6 +26,8 @@ class RiversImport extends Command
      */
     public function handle()
     {
+        sleep(30);
+
         foreach (config('pegel.rivers') as $river) {
             ImportRiverData::dispatchSync($river['id']);
         }
