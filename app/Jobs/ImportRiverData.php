@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ImportRiverData implements ShouldQueue
 {
@@ -33,6 +34,8 @@ class ImportRiverData implements ShouldQueue
      */
     public function handle(): void
     {
+        Log::info('Updating data for river '.$this->id);
+
         $currentLevel = Http::get('https://pegel.feuerwehr-krems.at/api/getPegel', [
             'pegelid' => $this->id,
         ])->json();
