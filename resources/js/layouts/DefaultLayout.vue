@@ -24,6 +24,7 @@
                 3341 Ybbsitz
             </div>
             <div class="space-x-3 flex">
+                <a href="https://github.com/CHH/hochwasser-dashboard-laravel">GitHub &rarr;</a>
                 <a href="https://hochstrasser.io">Website &rarr;</a>
                 <a href="https://hochstrasser.io/privacy">Datenschutz &rarr;</a>
             </div>
