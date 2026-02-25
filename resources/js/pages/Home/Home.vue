@@ -5,7 +5,7 @@ import { onBeforeUnmount, onMounted, ref } from 'vue';
 // import { data as history } from '../../data/history.data.js'
 import River from './Partials/River.vue';
 import DefaultLayout from '../../layouts/DefaultLayout.vue';
-import { Deferred, router } from '@inertiajs/vue3';
+import { Deferred, Link, router } from '@inertiajs/vue3';
 
 defineProps(['rivers'])
 
@@ -46,12 +46,14 @@ onBeforeUnmount(() => {
 
                     <section
                         class="rounded-xl bg-gray-800 xl:col-span-6"
-                        v-for="(river) in rivers"
+                        v-for="(river, pegelId) in rivers"
                     >
-                        <River
-                            :data="river.data"
-                            :history="river.levels"
-                        />
+                        <Link :href="`/rivers/${pegelId}`">
+                            <River
+                                :data="river.data"
+                                :history="river.levels"
+                            />
+                        </Link>
                     </section>
                 </Deferred>
 
