@@ -36,7 +36,7 @@ console.log(props.history.map((it) => (
             :options="{
                 grid: {
                     left: 32,
-                    right: 0,
+                    right: 8,
                 },
                 xAxis: [
                     {
