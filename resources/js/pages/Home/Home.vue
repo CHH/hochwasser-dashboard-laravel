@@ -71,11 +71,11 @@ onBeforeUnmount(() => {
 
         <footer class="mt-9">
             <div>
-                Die Daten für dieses Dashboard werden alle 15 Minuten aktualisiert.
+                Die Daten für dieses Dashboard werden alle 5 Minuten aktualisiert.
             </div>
 
             <div class="mt-3">
-                Quelle & laufende Daten: <a href="https://pegel.feuerwehr-krems.at/">https://pegel.feuerwehr-krems.at/</a>
+                Quelle: <a href="https://pegel.feuerwehr-krems.at/">https://pegel.feuerwehr-krems.at/</a>
             </div>
         </footer>
     </div>
