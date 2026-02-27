@@ -67,7 +67,7 @@ onBeforeUnmount(() => {
                 </section>
 
                 <section class="rounded-xl bg-gray-800 shadow-sm xl:col-span-6 overflow-hidden">
-                    <header class="py-3 px-6 text-lg">Einsätze der FF Ybbsitz</header>
+                    <header class="py-3 px-6 text-lg">Einsätze der <a href="https://www.ff-ybbsitz.at/">FF Ybbsitz</a></header>
                     <iframe src="https://www.feuerwehr-krems.at/Dokumente/Bezirk/Die%20Feuerwehren/Die%20Feuerwehren/FFInfo_Allgemein.asp?EldisID=337401&Select=1" frameborder="0"
                         class="w-full aspect-square"
                     ></iframe>
