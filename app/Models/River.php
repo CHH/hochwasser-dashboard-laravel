@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class River extends Model
 {
     public $fillable = [
+        'name',
         'pegel_id',
         'data',
     ];

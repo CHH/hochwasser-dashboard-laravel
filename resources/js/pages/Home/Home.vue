@@ -35,7 +35,7 @@ onBeforeUnmount(() => {
 
 <template>
     <div>
-        <div class="pt-3">
+        <div class="">
             <div class="grid grid-cols-1 xl:grid-cols-12 gap-3 xl:gap-6">
                 <Deferred data="rivers">
                     <template #fallback>
@@ -49,20 +49,26 @@ onBeforeUnmount(() => {
                         v-for="(river) in rivers"
                     >
                         <River
+                            :river="river"
                             :data="river.data"
                             :history="river.levels"
-                        />
+                        >
+                            <template #subtitle>3 Tage</template>
+                        </River>
                     </section>
                 </Deferred>
 
-                <section class="rounded-xl bg-white shadow-sm xl:col-span-6 overflow-hidden">
-                    <iframe src="https://www.feuerwehr-krems.at/Dokumente/Bezirk/Die%20Feuerwehren/Die%20Feuerwehren/FFInfo_Allgemein.asp?EldisID=337401&Select=1" frameborder="0"
+                <section class="rounded-xl bg-gray-800 shadow-sm xl:col-span-6 overflow-hidden">
+                    <header class="py-3 px-6 text-lg">Wetter-Warnungen für Ybbsitz</header>
+
+                    <iframe src="https://warnungen.zamg.at/wsapp/de/alle/heute/496799,437164,539634,459470" frameborder="0"
                         class="w-full aspect-square"
                     ></iframe>
                 </section>
 
-                <section class="rounded-xl bg-white shadow-sm xl:col-span-6 overflow-hidden">
-                    <iframe src="https://warnungen.zamg.at/wsapp/de/alle/heute/496799,437164,539634,459470" frameborder="0"
+                <section class="rounded-xl bg-gray-800 shadow-sm xl:col-span-6 overflow-hidden">
+                    <header class="py-3 px-6 text-lg">Einsätze der FF Ybbsitz</header>
+                    <iframe src="https://www.feuerwehr-krems.at/Dokumente/Bezirk/Die%20Feuerwehren/Die%20Feuerwehren/FFInfo_Allgemein.asp?EldisID=337401&Select=1" frameborder="0"
                         class="w-full aspect-square"
                     ></iframe>
                 </section>

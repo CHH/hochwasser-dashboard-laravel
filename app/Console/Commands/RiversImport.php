@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\ImportRiverData;
+use App\Models\River;
 use Illuminate\Console\Command;
 
 class RiversImport extends Command
@@ -12,7 +13,7 @@ class RiversImport extends Command
      *
      * @var string
      */
-    protected $signature = 'app:rivers:import';
+    protected $signature = 'app:rivers:import {--delay=}';
 
     /**
      * The console command description.
@@ -26,10 +27,12 @@ class RiversImport extends Command
      */
     public function handle()
     {
-        sleep(30);
+        if ($this->option('delay')) {
+            sleep((int) $this->option('delay'));
+        }
 
-        foreach (config('pegel.rivers') as $river) {
-            ImportRiverData::dispatchSync($river['id']);
+        foreach (River::all() as $river) {
+            ImportRiverData::dispatchSync($river);
         }
     }
 }

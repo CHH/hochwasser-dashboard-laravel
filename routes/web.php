@@ -19,3 +19,17 @@ Route::get('/', function () {
         ),
     ]);
 });
+
+Route::get('/pegel/{river:name}', function (River $river) {
+    $river->load([
+        'levels' => fn ($query) =>
+            $query
+                ->where('timestamp', '>=', Date::now()->subDays(8))
+                ->orderBy('river_id', 'asc')
+                ->orderBy('timestamp', 'asc')
+    ]);
+
+    return Inertia::render('River/Show', [
+        'river' => $river,
+    ]);
+});

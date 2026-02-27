@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\ImportRiverData;
+use App\Models\River;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
 
@@ -27,9 +28,9 @@ class RiversHistoryImport extends Command
      */
     public function handle()
     {
-        foreach (config('pegel.rivers') as $river) {
+        foreach (River::all() as $river) {
             ImportRiverData::dispatchSync(
-                $river['id'],
+                $river,
                 from: Date::now()->subDays(8),
                 to: Date::now(),
             );

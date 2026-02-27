@@ -1,17 +1,33 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
 import EChart from '../../../components/EChart.vue';
 import dayjs from 'dayjs';
+import { onMounted } from 'vue';
 
-const props = defineProps(['river', 'data', 'history'])
+const props = defineProps(['river', 'data', 'history', 'height'])
 
-console.log(props.history.map((it) => (
-    [+dayjs(it.timestamp), it.value]
-)))
+// async function fetchWarnings() {
+//     const warnings = await fetch(`https://warnungen.zamg.at/wsapp/api/getWarningsForCoords?lon=${props.river.data.Key.cLon}&lat=${props.river.data.Key.cLat}&lang=de`)
+// }
+
+// onMounted(async () => {
+//     await fetchWarnings()
+// })
 </script>
 
 <template>
     <header class="py-3 px-6 rounded-t grid grid-cols-12 items-center">
-        <h2 class="col-span-6 text-lg">{{ data.Key.cPegel }}</h2>
+        <div class="col-span-6">
+            <h2 class="text-lg">
+                <Link :href="`/pegel/${river.name}`">
+                    {{ data.Key.cPegel }}
+                </Link>
+            </h2>
+            <p v-if="$slots.subtitle" class="m-0 text-gray-400 text-sm">
+                <slot name="subtitle"></slot>
+            </p>
+        </div>
+
         <div class="col-span-6 text-right">
             <div
                 class="text-lg font-bold"
@@ -32,7 +48,7 @@ console.log(props.history.map((it) => (
     <div class="py-3 px-3">
         <e-chart
             class="border-0"
-            :height="400"
+            :height="height ?? 400"
             :options="{
                 grid: {
                     left: 32,

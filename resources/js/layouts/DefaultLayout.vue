@@ -1,13 +1,19 @@
 <script setup>
+import { Link } from '@inertiajs/vue3';
+
 </script>
 
 <template>
-    <div class="p-3 xl:p-6">
+    <div class="p-3 xl:px-6">
         <header>
-            <h1 class="font-bold text-lg">Hochwasser Dashboard Ybbsitz</h1>
+            <h1 class="font-bold text-lg py-6">
+                <Link href="/">
+                    Hochwasser Dashboard Ybbsitz
+                </Link>
+            </h1>
         </header>
         <slot/>
-        <footer class="mt-3">
+        <footer class="py-6">
             <div>
                 <b>Version: </b> {{ $page.props.pegel.version }}
             </div>

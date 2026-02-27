@@ -5,13 +5,14 @@ namespace App\Jobs;
 use App\Models\River;
 use App\Models\RiverLevel;
 use Carbon\Carbon;
+use Illuminate\Contracts\Broadcasting\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
-class ImportRiverData implements ShouldQueue
+class ImportRiverData implements ShouldQueue, ShouldBeUnique
 {
     use Queueable;
 
@@ -21,7 +22,7 @@ class ImportRiverData implements ShouldQueue
      * @param string $id River ID
      */
     public function __construct(
-        public string $id,
+        public River $river,
         public ?Carbon $from = null,
         public ?Carbon $to = null,
     )
@@ -29,27 +30,31 @@ class ImportRiverData implements ShouldQueue
         //
     }
 
+    public function uniqueId(): string
+    {
+        return md5(join('|', [
+            $this->river->id,
+            $this->from?->toDateTimeString(),
+            $this->to?->toDateTimeString(),
+        ]));
+    }
+
     /**
      * Execute the job.
      */
     public function handle(): void
     {
-        Log::info('Updating data for river '.$this->id);
+        Log::info('Updating data for river '.$this->river->name);
 
         $currentLevel = Http::get('https://pegel.feuerwehr-krems.at/api/getPegel', [
-            'pegelid' => $this->id,
+            'pegelid' => $this->river->pegel_id,
         ])->json();
 
-        River::updateOrCreate([
-            'pegel_id' => $this->id,
-        ], [
-            'data' => $currentLevel
-        ]);
-
-        $river = River::where('pegel_id', $this->id)->first();
+        $this->river->data = $currentLevel;
+        $this->river->save();
 
         $query = [
-            'pegelid' => $this->id,
+            'pegelid' => $this->river->pegel_id,
             'za' => 15,
             'd1' => ($this->from ?? Date::now())->subHour()->format('Y-m-d\TH:i:s'),
             'd2' => ($this->to ?? Date::now())->format('Y-m-d\TH:i:s'),
@@ -58,9 +63,9 @@ class ImportRiverData implements ShouldQueue
         $history = Http::get('https://pegel.feuerwehr-krems.at/api/getPegelwerte', $query)->json();
 
         RiverLevel::upsert(
-            collect($history)->map(function ($level) use ($river) {
+            collect($history)->map(function ($level) {
                 return [
-                    'river_id' => $river->id,
+                    'river_id' => $this->river->id,
                     'timestamp' => Date::parse($level['Key'])->toDateTimeString(),
                     'value' => $level['Value'],
                 ];
